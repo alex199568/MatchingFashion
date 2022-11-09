@@ -1,4 +1,4 @@
-package com.test.data
+package com.test.data.mf
 
 data class ApiImage(
     val url: String

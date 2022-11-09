@@ -12,8 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.test.data.*
-import com.test.ui.theme.MatchingFasionTheme
+import com.test.data.mf.*
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -24,7 +23,7 @@ fun MainScreen(viewModel: MainViewModel = koinViewModel()) {
 
         LazyColumn {
             items(products) { product ->
-                ProductView(product = product)
+                ProductView(result = product)
                 Divider()
             }
         }
@@ -32,18 +31,18 @@ fun MainScreen(viewModel: MainViewModel = koinViewModel()) {
 }
 
 @Composable
-fun ProductView(product: Product) {
+fun ProductView(result: Result) {
     Column {
-        Text(text = "Code: ${product.code}")
-        Text(text = "Name: ${product.name}")
-        Text(text = "Designer: ${product.designer.name}")
-        Text(text = "Price: ${product.price.formattedValue}")
+        Text(text = "Code: ${result.code}")
+        Text(text = "Name: ${result.name}")
+        Text(text = "Designer: ${result.designer.name}")
+        Text(text = "Price: ${result.price.formattedValue}")
 
-        println("https:" + product.primaryImageMap.thumbnail.url)
+        println("https:" + result.primaryImageMap.thumbnail.url)
 
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data("https:" + product.primaryImageMap.thumbnail.url)
+                .data("https:" + result.primaryImageMap.thumbnail.url)
                 .crossfade(true)
                 .build(),
             contentDescription = "Image",
@@ -55,7 +54,7 @@ fun ProductView(product: Product) {
 @Composable()
 @Preview(showBackground = true)
 fun ProductPreview() {
-    val product = Product(
+    val result = Result(
         code = "73843",
         name = "Some product",
         designer = Designer(name = "Designer"),
@@ -67,5 +66,5 @@ fun ProductPreview() {
         ),
         price = Price(formattedValue = "1000")
     )
-    ProductView(product = product)
+    ProductView(result = result)
 }

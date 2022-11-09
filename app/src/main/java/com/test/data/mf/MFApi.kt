@@ -1,4 +1,4 @@
-package com.test.data
+package com.test.data.mf
 
 import retrofit2.http.GET
 

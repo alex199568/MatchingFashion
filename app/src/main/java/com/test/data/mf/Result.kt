@@ -1,6 +1,6 @@
-package com.test.data
+package com.test.data.mf
 
-data class Product(
+data class Result(
     val code: String,
     val name: String,
     val designer: Designer,
