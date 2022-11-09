@@ -181,8 +181,6 @@ data class Rates(
             Currency.Aud -> AUD
             Currency.Cad -> CAD
             Currency.Chf -> CHF
-            Currency.Hkd -> HKD
-            Currency.Krw -> KRW
         }
     }
 }

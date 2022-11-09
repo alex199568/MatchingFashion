@@ -9,6 +9,4 @@ enum class Currency(val displayName: String, val id: Int) {
     Aud("AUD", 5),
     Cad("CAD", 6),
     Chf("CHF", 7),
-    Hkd("HKD", 8),
-    Krw("KRW", 9)
 }

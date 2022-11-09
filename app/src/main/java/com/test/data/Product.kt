@@ -5,6 +5,6 @@ data class Product(
     val designer: String,
     val imageUrl: String,
     val gbpPrice: String,
-    val altCurrencyPrice: String
+    val altCurrencyPrice: String?
 ) {
 }

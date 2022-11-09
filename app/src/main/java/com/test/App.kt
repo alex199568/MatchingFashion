@@ -41,6 +41,7 @@ private val apiModule = module {
     single<MFApi> {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://www.matchesfashion.com/")
+            .client(get())
             .addConverterFactory(get<GsonConverterFactory>())
             .build()
 
