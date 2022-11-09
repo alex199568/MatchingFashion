@@ -6,6 +6,7 @@ import com.test.data.Product
 import com.test.data.ProductsRepo
 import com.test.data.mf.MFApi
 import com.test.data.mf.Result
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,10 @@ class MainViewModel(
 
     init {
         viewModelScope.launch {
-            productsFlow.value = productsRepo.getProducts()
+            while (true) {
+                productsFlow.value = productsRepo.getProducts()
+                delay(500L)
+            }
         }
     }
 }

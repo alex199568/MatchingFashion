@@ -25,7 +25,7 @@ class CurrenciesRepo(
     suspend fun convert(price: Int): Float {
         val currentTime = System.currentTimeMillis()
         val timeDiff = currentTime - ratesReceivedAt
-        if (ratesCache == null || timeDiff > RatesCacheMaxAge) {
+        if (ratesCache == null || timeDiff > CacheLifetime) {
             val rates = currencyApi.getRates("GBP")
             ratesCache = rates.rates
             ratesReceivedAt = System.currentTimeMillis()
@@ -38,6 +38,6 @@ class CurrenciesRepo(
     companion object {
 
         private const val CurrencyKey = "currency"
-        private const val RatesCacheMaxAge = 10L * 1000L
+        private const val CacheLifetime = 1L * 60L * 1000L
     }
 }
