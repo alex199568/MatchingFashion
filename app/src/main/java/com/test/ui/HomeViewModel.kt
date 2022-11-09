@@ -4,13 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.test.data.Product
 import com.test.data.ProductsRepo
-import com.test.data.mf.MFApi
-import com.test.data.mf.Result
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(
+class HomeViewModel(
     private val productsRepo: ProductsRepo
 ) : ViewModel() {
 

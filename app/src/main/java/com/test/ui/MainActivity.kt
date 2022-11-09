@@ -25,14 +25,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Column {
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
                         TopAppBar(
                             title = {
                                 Text(text = "Matching Fashion")
                             },
-//                            navigationIcon = {
-//
-//                            },
                             backgroundColor = Color.Blue,
                             contentColor = Color.White,
                             elevation = 12.dp,
@@ -46,7 +45,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
 
-                        MainScreen()
+                        HomeScreen()
                     }
                 }
             }

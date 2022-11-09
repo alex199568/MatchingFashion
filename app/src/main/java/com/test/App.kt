@@ -7,10 +7,8 @@ import com.test.data.CurrenciesRepo
 import com.test.data.ProductsRepo
 import com.test.data.currency.CurrencyApi
 import com.test.data.mf.MFApi
-import com.test.ui.MainViewModel
+import com.test.ui.HomeViewModel
 import com.test.ui.SettingsViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.android.inject
@@ -18,7 +16,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.dsl.module
-import org.koin.java.KoinJavaComponent.inject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -78,7 +75,7 @@ private val repoModule = module {
 
 private val viewModelModule = module {
 
-    viewModel { MainViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
     viewModel { SettingsViewModel(get()) }
 }
 

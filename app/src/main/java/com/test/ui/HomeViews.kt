@@ -4,9 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Divider
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,26 +22,35 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.test.data.Product
-import com.test.data.mf.*
 import com.test.ui.theme.Shapes
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun MainScreen(viewModel: MainViewModel = koinViewModel()) {
-    Column {
+fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
 
         val products = viewModel.productsFlow.collectAsState().value
+        if (products.isEmpty()) {
+            EmptyView()
+        } else {
+            ProductsView(products = products)
+        }
+    }
+}
 
-        LazyColumn(
-            modifier = Modifier.padding(horizontal = 8.dp)
-        ) {
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            items(products) { product ->
-                ProductView(product = product)
-                Spacer(modifier = Modifier.height(12.dp))
-            }
+@Composable
+fun ProductsView(products: List<Product>) {
+    LazyColumn(
+        modifier = Modifier.padding(horizontal = 8.dp)
+    ) {
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+        items(products) { product ->
+            ProductView(product = product)
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
@@ -115,4 +123,19 @@ fun ProductPreview() {
         altCurrencyPrice = "1000"
     )
     ProductView(product)
+}
+
+@Composable
+fun EmptyView() {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Spacer(modifier = Modifier.weight(1f))
+        CircularProgressIndicator()
+        Spacer(modifier = Modifier.weight(1f))
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun EmptyPreview() {
+    EmptyView()
 }
