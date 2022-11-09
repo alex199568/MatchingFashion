@@ -24,7 +24,7 @@ class ProductsRepo(
             Product(
                 name = it.name,
                 designer = it.designer.name,
-                imageUrl = "https:" + it.primaryImageMap.thumbnail.url,
+                imageUrl = "https:" + it.primaryImageMap.large.url,
                 gbpPrice = it.price.formattedValue,
                 altCurrencyPrice = "${selectedCurrency.displayName} $convertedPrice"
             )
