@@ -20,8 +20,6 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(viewModel: MainViewModel = koinViewModel()) {
     Column {
 
-        Text(text = "Matching Fashion")
-
         val products = viewModel.productsFlow.collectAsState().value
 
         LazyColumn {

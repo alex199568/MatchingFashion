@@ -1,6 +1,5 @@
 package com.test.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,16 +7,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.test.ui.theme.MatchingFasionTheme
 
-class MainActivity : ComponentActivity() {
+class SettingsActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             MatchingFasionTheme {
                 // A surface container using the 'background' color from the theme
@@ -28,25 +28,21 @@ class MainActivity : ComponentActivity() {
                     Column {
                         TopAppBar(
                             title = {
-                                Text(text = "Matching Fashion")
+                                Text(text = "Settings")
                             },
-//                            navigationIcon = {
-//
-//                            },
+                            navigationIcon = {
+                                IconButton(onClick = {
+                                    finish()
+                                }) {
+                                    Icon(Icons.Filled.ArrowBack,"back")
+                                }
+                            },
                             backgroundColor = Color.Blue,
                             contentColor = Color.White,
-                            elevation = 12.dp,
-                            actions = {
-                                IconButton(onClick = {
-                                    val intent = Intent(this@MainActivity, SettingsActivity::class.java)
-                                    startActivity(intent)
-                                }) {
-                                    Icon(Icons.Filled.Settings,"settings")
-                                }
-                            }
+                            elevation = 12.dp
                         )
 
-                        MainScreen()
+                        SettingsScreen()
                     }
                 }
             }
