@@ -7,9 +7,12 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.test.data.Designer
-import com.test.data.Product
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.test.data.*
 import com.test.ui.theme.MatchingFasionTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -21,7 +24,7 @@ fun MainScreen(viewModel: MainViewModel = koinViewModel()) {
 
         val products = viewModel.productsFlow.collectAsState().value
 
-        LazyColumn() {
+        LazyColumn {
             items(products) { product ->
                 ProductView(product = product)
                 Divider()
@@ -36,12 +39,35 @@ fun ProductView(product: Product) {
         Text(text = "Code: ${product.code}")
         Text(text = "Name: ${product.name}")
         Text(text = "Designer: ${product.designer.name}")
+        Text(text = "Price: ${product.price.formattedValue}")
+
+        println("https:" + product.primaryImageMap.thumbnail.url)
+
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data("https:" + product.primaryImageMap.thumbnail.url)
+                .crossfade(true)
+                .build(),
+            contentDescription = "Image",
+            contentScale = ContentScale.Crop,
+        )
     }
 }
 
 @Composable()
 @Preview(showBackground = true)
 fun ProductPreview() {
-    val product = Product(code = "73843", name = "Some product", designer = Designer(name = "Designer"))
+    val product = Product(
+        code = "73843",
+        name = "Some product",
+        designer = Designer(name = "Designer"),
+        primaryImageMap = ImageMap(
+            thumbnail =
+            ApiImage(
+                url = "https://image.shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg"
+            )
+        ),
+        price = Price(formattedValue = "1000")
+    )
     ProductView(product = product)
 }
