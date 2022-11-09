@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.test.data.Product
 import com.test.data.mf.*
 import org.koin.androidx.compose.koinViewModel
 
@@ -23,7 +24,7 @@ fun MainScreen(viewModel: MainViewModel = koinViewModel()) {
 
         LazyColumn {
             items(products) { product ->
-                ProductView(result = product)
+                ProductView(product = product)
                 Divider()
             }
         }
@@ -31,18 +32,16 @@ fun MainScreen(viewModel: MainViewModel = koinViewModel()) {
 }
 
 @Composable
-fun ProductView(result: Result) {
+fun ProductView(product: Product) {
     Column {
-        Text(text = "Code: ${result.code}")
-        Text(text = "Name: ${result.name}")
-        Text(text = "Designer: ${result.designer.name}")
-        Text(text = "Price: ${result.price.formattedValue}")
-
-        println("https:" + result.primaryImageMap.thumbnail.url)
+        Text(text = "Name: ${product.name}")
+        Text(text = "Designer: ${product.designer}")
+        Text(text = "Price: ${product.gbpPrice}")
+        Text(text = "Alt price: ${product.altCurrencyPrice}")
 
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data("https:" + result.primaryImageMap.thumbnail.url)
+                .data(product.imageUrl)
                 .crossfade(true)
                 .build(),
             contentDescription = "Image",
@@ -54,17 +53,12 @@ fun ProductView(result: Result) {
 @Composable()
 @Preview(showBackground = true)
 fun ProductPreview() {
-    val result = Result(
-        code = "73843",
-        name = "Some product",
-        designer = Designer(name = "Designer"),
-        primaryImageMap = ImageMap(
-            thumbnail =
-            ApiImage(
-                url = "https://image.shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg"
-            )
-        ),
-        price = Price(formattedValue = "1000")
+    val product = Product(
+        name = "Product",
+        designer = "Designer",
+        imageUrl = "",
+        gbpPrice = "1000",
+        altCurrencyPrice = "1000"
     )
-    ProductView(result = result)
+    ProductView(product)
 }

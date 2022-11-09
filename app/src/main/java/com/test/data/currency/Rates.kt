@@ -169,5 +169,20 @@ data class Rates(
     val YER: Float = 1.0f,
     val ZAR: Float = 1.0f,
     val ZMW: Float = 1.0f,
-    val ZWL: Float = 1.0f,
-)
+    val ZWL: Float = 1.0f
+) {
+
+    fun rateFor(currency: Currency): Float {
+        return when (currency) {
+            Currency.Gbp -> GBP
+            Currency.Eur -> EUR
+            Currency.Usd -> USD
+            Currency.Jpy -> JPY
+            Currency.Aud -> AUD
+            Currency.Cad -> CAD
+            Currency.Chf -> CHF
+            Currency.Hkd -> HKD
+            Currency.Krw -> KRW
+        }
+    }
+}

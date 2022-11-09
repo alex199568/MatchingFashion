@@ -1,4 +1,4 @@
-package com.test.domain.model
+package com.test.data
 
 data class Product(
     val name: String,
