@@ -18,8 +18,15 @@ class ProductsRepo(
         val currentTime = System.currentTimeMillis()
         val timeDiff = currentTime - responseReceivedAt
         if (timeDiff > CacheLifetime || responseCache.isEmpty()) {
-            responseCache = mfApi.getProducts().results
-            responseReceivedAt = System.currentTimeMillis()
+            val results = try {
+                mfApi.getProducts().results
+            } catch (t: Throwable) {
+                listOf<Result>()
+            }
+            if (results.isNotEmpty()) {
+                responseCache = results
+                responseReceivedAt = System.currentTimeMillis()
+            }
         }
         val selectedCurrency = currenciesRepo.getSelectedCurrency()
         val format: NumberFormat = NumberFormat.getCurrencyInstance()

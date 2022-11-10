@@ -26,9 +26,15 @@ class CurrenciesRepo(
         val currentTime = System.currentTimeMillis()
         val timeDiff = currentTime - ratesReceivedAt
         if (ratesCache == null || timeDiff > CacheLifetime) {
-            val rates = currencyApi.getRates("GBP")
-            ratesCache = rates.rates
-            ratesReceivedAt = System.currentTimeMillis()
+            val rates = try {
+                currencyApi.getRates("GBP")
+            } catch (t: Throwable) {
+                null
+            }
+            if (rates != null) {
+                ratesCache = rates.rates
+                ratesReceivedAt = System.currentTimeMillis()
+            }
         }
         val selectedCurrency = getSelectedCurrency()
         val rate = ratesCache?.rateFor(selectedCurrency) ?: 1f
